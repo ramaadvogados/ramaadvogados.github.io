@@ -1,66 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home Services</title>
+    <title>Rama Advogados - Dashboards</title>
     <style>
         body { font-family: Arial; padding: 20px; }
-        .service { margin: 10px; padding: 15px; background: #f0f0f0; }
+        .page { margin: 10px; padding: 15px; background: #f0f0f0; }
     </style>
 </head>
 <body>
-    <h1>Dashboards</h1>
-    
-    <div class="varejo">
-        <h3>Jurídico Varejo</h3>
-        <p>Jurídico Varejo</p>
-        <button onclick="goToService('varejo')">Jurídico Varejo</button>
+    <div class="page">
+        <!-- <h3>Jurídico Varejo</h3>
+        <p>Jurídico Varejo</p> -->
+        <button onclick="goToPage('varejo')">Jurídico Varejo</button>
     </div>
     
-    <div class="ctrl">
-        <h3>Controladoria Jurídica</h3>
-        <p>Controladoria Jurídica</p>
-        <button onclick="goToService('ctrl')">Controladoria Jurídica</button>
+    <div class="page">
+        <!-- <h3>Controladoria Jurídica</h3>
+        <p>Controladoria Jurídica</p> -->
+        <button onclick="goToPage('reagendamentos')">Controladoria Jurídica</button>
     </div>
 
-    <div class="imob">
-        <h3>Jurídico Imobiliário</h3>
-        <p>Jurídico Imobiliários</p>
-        <button onclick="goToService('imob')">Jurídico Imobiliário</button>
+    <div class="page">
+        <!-- <h3>Jurídico Imobiliário</h3>
+        <p>Jurídico Imobiliários</p> -->
+        <button onclick="goToPage('imobiliario')">Jurídico Imobiliário</button>
     </div>
     
-    <div class="cust">
-        <h3>Jurídico Customizado</h3>
-        <p>Jurídico Customizado</p>
-        <button onclick="goToService('cust')">Jurídico Customizado</button>
+    <div class="page">
+        <!-- <h3>Jurídico Customizado</h3>
+        <p>Jurídico Customizado</p> -->
+        <button onclick="goToPage('customizado')">Jurídico Customizado</button>
+    </div>
+
+    <div class="page">
+        <!-- <h3>Códigos - 2FA</h3>
+        <p>Códigos - 2FA</p> -->
+        <button onclick="goToPage('2fa')">Códigos - 2FA</button>
     </div>
     
     <script>
-        // Your current server IP - ONLY PLACE TO UPDATE
-        const serverIP = "172.16.20.63";
-        
-        // Port mapping for each service
-        const services = {
+
+        // Access via buttons
+
+        const serverIP = "172.16.20.63"; // Server IP 
+        const pages = {
             'varejo': '8501',
-            'ctrl': '8519',
-            'imob': '8512',
-            'cust': '8515'
+            'reagendamentos': '8519',
+            'imobiliario': '8512',
+            'customizado': '8515',
+            '2fa': '8585'
         };
         
-        function goToService(serviceName) {
-            if(services[serviceName]) {
-                // Opens in new tab: http://192.168.1.100:8096
-                window.open(`http://${serverIP}:${services[serviceName]}`, '_blank');
+        function goToPage(pageName) {
+            if(pages[pageName]) {
+                window.open(`http://${serverIP}:${pages[pageName]}`, '_blank');
             } else {
-                alert("Erro.");
+                alert("A página solicitada não está disponível. Entre em contato com a equipe de desenvolvimento para averiguar a situação.");
             }
         }
         
-        // Optional: URL parameters for direct access
-        // Example: https://your-page.netlify.app?service=media
+        // Access via URL params
+
         const urlParams = new URLSearchParams(window.location.search);
-        const serviceParam = urlParams.get('service');
-        if(serviceParam && services[serviceParam]) {
-            window.location.href = `http://${serverIP}:${services[serviceParam]}`;
+        const pageParam = urlParams.get('page') || urlParams.get('dashboard');
+        if(pageParam && pages[pageParam]) {
+            window.location.href = `http://${serverIP}:${pages[pageParam]}`;
         }
     </script>
 </body>
